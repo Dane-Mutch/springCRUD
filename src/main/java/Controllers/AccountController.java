@@ -29,7 +29,7 @@ public class AccountController {
 
     @RequestMapping(value = "accounts/")
     @ResponseBody
-    public String createAccount(@PathVariable long id) {
+    public String createAccount() {
         return null;
     }
 
