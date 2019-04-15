@@ -1,2 +1,6 @@
-C:\Users\danem\eclipse-workspace\spring\src\main\java\hello\Application.java
-C:\Users\danem\eclipse-workspace\spring\src\main\java\hello\HelloController.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Application.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Repositories\AccountRepository.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Controllers\AccountController.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Entities\Account.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Services\ISoccerService.java
+C:\Users\danem\IdeaProjects\springCRUD\src\main\java\App\Services\SoccerService.java
