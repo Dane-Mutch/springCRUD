@@ -2,5 +2,5 @@ target/
 .classpath
 .project
 spring.iml
-.idea
-.settings
+.idea/
+.settings/
