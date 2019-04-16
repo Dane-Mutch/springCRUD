@@ -1,68 +1,59 @@
 package App.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Account {
+public class Account implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "surname")
-    private String surname;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long accountNumber;
 
     @Column(name = "balance")
-    private int accountBalance;
+    private long accountBalance;
 
-    public Account(String firstName, String surname, int accountBalance) {
-        this.firstName = firstName;
-        this.surname = surname;
+    public Account() {}
+
+    public Account(String firstName, String surname, String emailAddress, int accountBalance) {
+        this.user = new User(firstName, surname, emailAddress);
         this.accountBalance = accountBalance;
     }
 
-    public Account() {
+    public Account(User user, long accountBalance) {
+        this.user = user;
+        this.accountBalance = accountBalance;
     }
 
-    public long getId() {
-        return id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumns({
+            @JoinColumn(name = "cust_id", referencedColumnName = "customer_id"),
+            @JoinColumn(name = "cust_first_name", referencedColumnName = "first_name"),
+            @JoinColumn(name = "cust_surname", referencedColumnName = "surname")
+    })
+    private User user;
+
+    public long getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAccountNumber(long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public int getAccountBalance() {
+    public long getAccountBalance() {
         return accountBalance;
     }
 
-    public void setAccountBalance(int accountBalance) {
+    public void setAccountBalance(long accountBalance) {
         this.accountBalance = accountBalance;
     }
 
+    public User getUser() {
+        return user;
+    }
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
