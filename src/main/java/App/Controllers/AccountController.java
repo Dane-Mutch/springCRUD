@@ -42,8 +42,8 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts", method = RequestMethod.POST)
     @ResponseBody
-    public void createAccount(String firstName, String lastName, int accountBalance) {
-        Account account = new Account(firstName, lastName, accountBalance);
+    public void createAccount(String firstName, String surname, int accountBalance) {
+        Account account = new Account(firstName, surname, accountBalance);
         accountRepository.save(account);
     }
 
