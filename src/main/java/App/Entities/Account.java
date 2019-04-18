@@ -1,5 +1,6 @@
 package App.Entities;
 
+import java.util.List;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,21 +9,16 @@ public class Account implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "account_number")
     private long accountNumber;
 
-    @Column(name = "balance")
-    private long accountBalance;
+    private List<Transaction> accountTransactions;
 
     public Account() {}
 
-    public Account(String firstName, String surname, String emailAddress, int accountBalance) {
-        this.user = new User(firstName, surname, emailAddress);
-        this.accountBalance = accountBalance;
-    }
-
-    public Account(User user, long accountBalance) {
+    public Account(User user, List<Transaction> accountTransactions) {
         this.user = user;
-        this.accountBalance = accountBalance;
+        this.accountTransactions = accountTransactions;
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -41,12 +37,12 @@ public class Account implements Serializable {
         this.accountNumber = accountNumber;
     }
 
-    public long getAccountBalance() {
-        return accountBalance;
+    public List<Transaction> getAccountTransactions() {
+        return accountTransactions;
     }
 
-    public void setAccountBalance(long accountBalance) {
-        this.accountBalance = accountBalance;
+    public void setAccountTransactions(List<Transaction> accountTransactions) {
+        this.accountTransactions = accountTransactions;
     }
 
     public User getUser() {

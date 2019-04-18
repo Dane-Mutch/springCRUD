@@ -1,14 +1,14 @@
 package App.Controllers;
 
+import java.util.List;
 import App.Entities.Account;
+import App.Entities.Transaction;
 import App.Entities.User;
 import App.Repositories.AccountRepository;
 import App.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class AccountController {
@@ -21,16 +21,16 @@ public class AccountController {
 
     @RequestMapping(value="/newAccount", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addAccountNewUser(String firstName, String surname, String emailAddress, long accountBalance) {
+    public void addAccountNewUser(String firstName, String surname, String emailAddress, List<Transaction> accountTransactions) {
         User user = new User(firstName, surname, emailAddress);
-        Account account = new Account(user, accountBalance);
+        Account account = new Account(user, accountTransactions);
         accountRepository.save(account);
     }
 
     @RequestMapping(value = "users/{customerID}/newAccount")
-    public void addAccountExistingUser(@PathVariable long customerID, long accountBalance) {
+    public void addAccountExistingUser(@PathVariable long customerID, List<Transaction> accountTransactions) {
         User user = userRepository.findById(customerID).get();
-        accountRepository.save(new Account(user, accountBalance));
+        accountRepository.save(new Account(user, accountTransactions));
     }
 
     @RequestMapping(value = "/{accountNumber}")
@@ -42,13 +42,6 @@ public class AccountController {
     @RequestMapping(value = "/{accountNumber}", method = RequestMethod.DELETE)
     public void deleteAccount(@PathVariable long accountNumber) {
         accountRepository.deleteById(accountNumber);
-    }
-
-    @RequestMapping(value = "/{accountNumber}", method = RequestMethod.PUT)
-    public void adjustAccountBalance(@PathVariable long accountNumber, long adjustAmount) {
-        Account account = accountRepository.findById(accountNumber).get();
-        account.setAccountBalance(account.getAccountBalance() + adjustAmount);
-        accountRepository.save(account);
     }
 
     @RequestMapping(value = "/accounts")
